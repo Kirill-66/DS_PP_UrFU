@@ -98,6 +98,11 @@ def analyze_time_series(data: TimeSeriesInput) -> TimeSeriesStatistics:
 def one_hot(data: OneHotInput) -> np.ndarray:
     labels, class_count = data.labels, data.class_count
     labels = np.asarray(labels)
+    if labels.size == 0:
+        return np.zeros(
+            (0, 0 if class_count is None else class_count),
+            dtype=int,
+        )
     if class_count is None:
         class_count = int(labels.max()) + 1
     result = np.zeros((len(labels), class_count), dtype=int)
