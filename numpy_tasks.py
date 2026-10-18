@@ -108,3 +108,19 @@ def one_hot(data: OneHotInput) -> np.ndarray:
     result = np.zeros((len(labels), class_count), dtype=int)
     result[np.arange(len(labels)), labels] = 1
     return result
+
+
+def plot_histograms(stats: MatrixStatistics, bins: int = 20) -> None:
+    import matplotlib.pyplot as plt
+
+    fig, axes = plt.subplots(2, 2, figsize=(10, 8))
+    axes[0, 0].hist(stats.matrix.ravel(), bins=bins)
+    axes[0, 0].set_title("all values")
+    axes[0, 1].hist(stats.row_means, bins=bins)
+    axes[0, 1].set_title("row means")
+    axes[1, 0].hist(stats.column_means, bins=bins)
+    axes[1, 0].set_title("column means")
+    axes[1, 1].hist(stats.row_variances, bins=bins)
+    axes[1, 1].set_title("row variances")
+    fig.tight_layout()
+    plt.show()
